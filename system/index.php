@@ -114,8 +114,8 @@ if (empty($_SESSION['hackathon_active'])) {
                                     <div class="card">
                                         <div class="seo-fact sbg1">
                                             <div class="p-4 d-flex justify-content-between align-items-center">
-                                                <div class="seofct-icon"><i class="ti-thumb-up"></i> Likes</div>
-                                                <h2>2,315</h2>
+                                                <div class="seofct-icon"><i class="ti-thumb-up"></i> Miembros Familia</div>
+                                                <h2>0</h2>
                                             </div>
                                             <canvas id="seolinechart1" height="50"></canvas>
                                         </div>
@@ -125,8 +125,8 @@ if (empty($_SESSION['hackathon_active'])) {
                                     <div class="card">
                                         <div class="seo-fact sbg2">
                                             <div class="p-4 d-flex justify-content-between align-items-center">
-                                                <div class="seofct-icon"><i class="ti-share"></i> Share</div>
-                                                <h2>3,984</h2>
+                                                <div class="seofct-icon"><i class="ti-share"></i> Productos en Mochila</div>
+                                                <h2>4</h2>
                                             </div>
                                             <canvas id="seolinechart2" height="50"></canvas>
                                         </div>

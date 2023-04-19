@@ -17,10 +17,12 @@ BEGIN
     ELSE
         insert into tbl_usuario(id_familia, nrodoc, apellidos, nombres, email, contrasena, estado, fechareg)
         values (0, _nrodoc, _apellidos, _nombres , _email, md5(_contrasena), 'R', now());
-        SET _msj = 'Registro exitoso, ya puede acceder a AylluTanta.';        
+        set @datausu=(select concat(cast(u.id as char),'|',u.apellidos,', ', u.nombres,'|',u.email,'|',u.nrodoc) as DataUsu
+			 FROM tbl_usuario u
+             WHERE id = (SELECT LAST_INSERT_ID()));
+        SET _msj = concat('Bienvenido$',@datausu);   
     END IF;   
 END $$
-
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS `sp_login`$$
@@ -38,7 +40,7 @@ BEGIN
 	ELSEIF((SELECT COUNT(*) FROM tbl_usuario WHERE (email = _email  or nrodoc = _email ) and contrasena = md5(_contrasena ) and (estado in('A', 'R'))) = 0) THEN
 		SET _msj = 'Usuario se encuentra inactivo.';
 	ELSE
-		set @datausu=(select concat(cast(u.id as char),'|',u.apellidos,', ', u.nombres,'|0|',u.email,'|',u.nrodoc,'|0|', u.usuario) as DataUsu
+		set @datausu=(select concat(cast(u.id as char),'|',u.apellidos,', ', u.nombres,'|',u.email,'|',u.nrodoc) as DataUsu
 			 FROM tbl_usuario u
              WHERE (contrasena = md5(_contrasena) and (u.email = _email  or u.nrodoc = _email )));
 		SET _msj = concat('Bienvenido$',@datausu);

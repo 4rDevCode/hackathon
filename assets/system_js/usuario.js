@@ -109,8 +109,10 @@ $("#btnRegisrar").click(function () {
             success: function (resultadoreg) {
                 console.log(resultadoreg);
                 if (resultadoreg.length > 0) {
-                    if (resultadoreg[0]['mensaje'].substring(0, 8) == "Registro") {
-                        mostrarMSG(true, resultadoreg[0]['mensaje']);
+                    if (resultadoreg[0]['mensaje'].substring(0, 10) == "Bienvenido") {
+                        Object.assign(document.createElement("a"), {
+                            href: "system/index.php"
+                        }).click();
                     }
                     else {
                         mostrarMSG(false, resultadoreg[0]['mensaje']);

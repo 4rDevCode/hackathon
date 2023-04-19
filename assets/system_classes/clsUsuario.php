@@ -61,6 +61,26 @@ if (isset($_POST['Option'])) {
         $out = mysqli_query($conexion, "select @msj as Resultado;");
         $datos = mysqli_fetch_array($out);
         $resultado = $datos['Resultado'];
+        $datosobtenidos = explode('$', $resultado);
+        if ($datosobtenidos[0] == "Bienvenido")
+         {
+            $datosusuario = explode("|", $datosobtenidos[1]);
+            $_SESSION['hackathon_active'] = true;
+            $_SESSION['hackathon_id'] = $datosusuario[0];           
+            $_SESSION['hackathon_datos'] = $datosusuario[1];
+            /*
+                $_SESSION['hackathon_usuario'] = $datosusuario[6];
+                if ($datosusuario[3] == "A") {
+                $_SESSION['hackathon_tipo'] = "Administrador";
+                $_SESSION['hackathon_rol'] = 1;
+            } else {
+                $_SESSION['hackathon_tipo'] = "Otro";
+                $_SESSION['hackathon_rol'] = 2;
+            }*/
+            $_SESSION['hackathon_email'] = $datosusuario[2];
+            $_SESSION['hackathon_dni'] = $datosusuario[3];         
+        } 
+        $return = array();
         $return[] = array('msj' => 'OK', 'mensaje' => utf8_encode($resultado));
         $json_string = json_encode($return);
         echo $json_string;
