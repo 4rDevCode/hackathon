@@ -99,7 +99,6 @@ $("#btnRegisrar").click(function () {
             '_email': txtEmail,
             '_password': txtPassword
         }
-        console.log(data);
         $.ajax({
             type: "post",
             url: url,

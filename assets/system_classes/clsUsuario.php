@@ -56,7 +56,7 @@ if (isset($_POST['Option'])) {
         $password = $_POST['_password'];
 
         $resultado = "";
-        $sql = "CALL sp_register('".$nrodoc."', '".$apellidos."', '".$nombres."', '".$email."', '".$password."', @msj);";
+        $sql = "CALL sp_registrar_usuario('".$nrodoc."', '".$apellidos."', '".$nombres."', '".$email."', '".$password."', @msj);";
         $ejecuta = mysqli_query($conexion, $sql);
         $out = mysqli_query($conexion, "select @msj as Resultado;");
         $datos = mysqli_fetch_array($out);

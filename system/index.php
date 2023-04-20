@@ -20,6 +20,7 @@ if (empty($_SESSION['hackathon_active'])) {
     <!-- preloader area start -->
     <div id="preloader">
         <div class="loader"></div>
+        <input type="hidden" id="rutaclases" value="<?php print(URL_CLASSES); ?>">
     </div>
     <!-- preloader area end -->
     <!-- page container area start -->
@@ -108,16 +109,93 @@ if (empty($_SESSION['hackathon_active'])) {
                                 </div>
                             </div>
                         </div>
+                        <div class="col-lg-6" name="divNuevoUsuario" id="divNuevoUsuario">
+                            <div class="row">
+                                <div class="col-md-12 mt-2 mb-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <button type="button" class="btn btn-primary btn-flat btn-lg mt-3"
+                                                data-toggle="modal" data-target="#modalFamilia" id="btnRegistrarFamilia"
+                                                name="btnRegistrarFamilia">Registrar
+                                                Familia</button>
+                                            <button type="button" class="btn btn-primary btn-flat btn-lg mt-3"
+                                                data-toggle="modal" data-target="#modalFamilia"
+                                                id="btnSeleccionarFamilia" name="btnSeleccionarFamilia">Seleccionar
+                                                Familia
+                                            </button>
+                                        </div>
+                                        <span class="info-box-number" id="lblCodigoFamilia" style="visibility: hidden"
+                                            name="lblCodigoFamilia"></span>
+                                        <input type="hidden" id="lblTipoFamiliaRegistro" name="lblTipoFamiliaRegistro"
+                                            value="">
+                                        <div class="modal fade" id="modalFamilia">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title"><span class="info-box-number"
+                                                                id="lblTituloFamilia" name="lblTituloFamilia"></span>
+                                                        </h5>
+                                                        <button type="button" class="close"
+                                                            data-dismiss="modal"><span>&times;</span></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Código de Familia:</label>
+                                                            <div class="input-group mb-3">
+                                                                <input class="form-control" type="text" value=""
+                                                                    id="txtCodigoFamilia" name="txtCodigoFamilia"
+                                                                    style="text-align: center">
+                                                                <div class="input-group-prepend">
+                                                                    <button class="btn btn-outline-secondary"
+                                                                        type="button" id="btnCodigoFamiliaBC"
+                                                                        name="btnCodigoFamiliaBC"><span
+                                                                            id="lblTextoBtnCodigoFamiliaBC"
+                                                                            name="lblTextoBtnCodigoFamiliaBC"></span></button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Nombre de Familia:</label>
+                                                            <input class="form-control" type="text" value=""
+                                                                id="txtNombreFamilia" name="txtNombreFamilia">
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <div class="col-sm-12 ">
+                                                                <div id="divmsgFamilia" name="divmsgFamilia"
+                                                                    class="alert-dismiss">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="modal-footer">
+
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Cancelar</button>
+                                                        <button type="button" class="btn btn-primary"
+                                                            id="btnSaveFamilia" name="btnSaveFamilia"><span
+                                                                id="lblTextoBtnSaveFamilia"
+                                                                name="lblTextoBtnSaveFamilia"></span></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-lg-6">
                             <div class="row">
                                 <div class="col-md-6 mt-5 mb-3">
                                     <div class="card">
                                         <div class="seo-fact sbg1">
                                             <div class="p-4 d-flex justify-content-between align-items-center">
-                                                <div class="seofct-icon"><i class="ti-thumb-up"></i> Miembros Familia</div>
+                                                <div class="seofct-icon"><i class="ti-thumb-up"></i>
+
+                                                </div>
                                                 <h2>0</h2>
                                             </div>
-                                            <canvas id="seolinechart1" height="50"></canvas>
+                                            <!--<canvas id="seolinechart2" height="50"></canvas>-->
                                         </div>
                                     </div>
                                 </div>
@@ -125,30 +203,11 @@ if (empty($_SESSION['hackathon_active'])) {
                                     <div class="card">
                                         <div class="seo-fact sbg2">
                                             <div class="p-4 d-flex justify-content-between align-items-center">
-                                                <div class="seofct-icon"><i class="ti-share"></i> Productos en Mochila</div>
+                                                <div class="seofct-icon"><i class="ti-share"></i> Productos en Mochila
+                                                </div>
                                                 <h2>4</h2>
                                             </div>
-                                            <canvas id="seolinechart2" height="50"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-3 mb-lg-0">
-                                    <div class="card">
-                                        <div class="seo-fact sbg3">
-                                            <div class="p-4 d-flex justify-content-between align-items-center">
-                                                <div class="seofct-icon">Impressions</div>
-                                                <canvas id="seolinechart3" height="60"></canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="card">
-                                        <div class="seo-fact sbg4">
-                                            <div class="p-4 d-flex justify-content-between align-items-center">
-                                                <div class="seofct-icon">New Users</div>
-                                                <canvas id="seolinechart4" height="60"></canvas>
-                                            </div>
+                                            <!--<canvas id="seolinechart2" height="50"></canvas>-->
                                         </div>
                                     </div>
                                 </div>
@@ -261,6 +320,7 @@ if (empty($_SESSION['hackathon_active'])) {
     <?php
     include_once('../assets/includes/footer_scripts.php');
     ?>
+    <script src="../assets/system_js/index.js"></script>
 </body>
 
 </html>

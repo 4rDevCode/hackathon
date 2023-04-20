@@ -1,7 +1,34 @@
-DELIMITER $$
-DROP PROCEDURE IF EXISTS `sp_register`$$
 
-CREATE PROCEDURE `sp_register` (
+DELIMITER $$
+DROP PROCEDURE IF EXISTS `sp_registrar_familia`$$
+
+CREATE PROCEDURE `sp_registrar_familia` (
+    `_id_usuario` int,
+    `_codigo` VARCHAR(20),
+    `_nombre` VARCHAR(500),
+    INOUT `_msj` VARCHAR(200)
+) 
+BEGIN 
+	set @idfam = 0;
+    IF(( SELECT COUNT(*) FROM tbl_familia WHERE codigo = _codigo ) > 0 ) THEN
+		set @idfam = (select id from tbl_familia where codigo = _codigo limit 1);
+    elseIF(( SELECT COUNT(*) FROM tbl_familia WHERE codigo = _codigo ) = 0 ) THEN
+        insert into tbl_familia(codigo, nombre, estado) values(_codigo, _nombre, 'A');
+        set @idfam = (SELECT LAST_INSERT_ID());
+	END IF;
+    IF( @idfam = 0 ) THEN
+        SET _msj = 'Ocurrió un error, por favor vuelva a intentarlo luego de refrescar la página.';        
+    ELSE
+        update tbl_usuario set id_familia = @idfam where  id = _id_usuario;
+        SET _msj = 'Registro exitoso.';   
+    END IF;   
+END $$
+
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS `sp_registrar_usuario`$$
+
+CREATE PROCEDURE `sp_registrar_usuario` (
     `_nrodoc` VARCHAR(25),
     `_apellidos` VARCHAR(500),
     `_nombres` VARCHAR(500),
