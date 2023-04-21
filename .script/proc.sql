@@ -15,7 +15,7 @@ BEGIN
 			set _msj = 'Mochila ya se encuentra registrada.';			
 		ELSE			
 			INSERT INTO tbl_mochila (id_familia,descripcion,peso,estado)
-			VALUES(_id_familia,_descripcion,_peso,estado);                    
+			VALUES(_id_familia,_descripcion,_peso,_estado);                    
           
 			SET _msj =  'Registro Exitoso.';
 		END IF;
