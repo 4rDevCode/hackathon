@@ -72,8 +72,7 @@ if (empty($_SESSION['hackathon_active'])) {
                         </div>
                     </div>
                     <div class="col-sm-6 clearfix">
-                    <?php include_once('../assets/includes/miperfil.php'); ?>
-                       
+                        <?php include_once('../assets/includes/miperfil.php'); ?>
                     </div>
                 </div>
             </div>
