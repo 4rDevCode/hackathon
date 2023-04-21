@@ -114,7 +114,7 @@ if (!empty($_SESSION['hackathon_active'])) {
     <!-- others plugins -->
     <script src="assets/js/plugins.js"></script>
     <script src="assets/js/scripts.js"></script>
-    <script src="assets/system_js/index.js"></script>
+    <script src="assets/system_js/usuario.js"></script>
 </body>
 
 </html>
