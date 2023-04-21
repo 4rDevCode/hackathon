@@ -3,9 +3,9 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS `sp_registrar_familia`$$
 
 CREATE PROCEDURE `sp_registrar_familia` (
-    `_id_usuario` int,
-    `_codigo` VARCHAR(20),
-    `_nombre` VARCHAR(500),
+    _id_usuario int,
+    _codigo VARCHAR(20),
+    _nombre VARCHAR(500),
     INOUT `_msj` VARCHAR(200)
 ) 
 BEGIN 

@@ -13,7 +13,6 @@ define("DB_ENCODE", "utf8");
 //Definimos una constante como nombre del proyecto
 define("SYSTEM_NAME", "AylluTanta");
 //Definimos una constante como nombre del proyecto
-define("URL_CLASSES", "http://192.168.75.121/hackathon/assets/system_classes/");
+define("URL_CLASSES", "http://127.0.0.1/hackathon/assets/system_classes/");
 
 ?>
-
