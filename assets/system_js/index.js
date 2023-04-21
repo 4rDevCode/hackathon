@@ -1,5 +1,8 @@
 var urlIndex = $("#rutaclases").val() + "clsIndex.php";
 var urlFamilia = $("#rutaclases").val() + "clsFamilia.php";
+var urlDominio = $("#rutadominio").val();
+
+$('#lblCodigoFamilia2').prop('readonly', true);
 
 $("#btnRegistrarFamilia").click(function () {
     $('#txtCodigoFamilia').prop('readonly', true);
@@ -11,7 +14,9 @@ $("#btnRegistrarFamilia").click(function () {
     $('#lblTextoBtnCodigoFamiliaBC').html("Copiar");
     $('#txtNombreFamilia').prop('readonly', false);
     $('#lblCodigoFamilia').html(nuevocodigo);
-    $('#btnCodigoFamiliaBC').prop('readonly', true);
+    $('#btnCodigoFamiliaBC').prop('disabled', false);
+    $('#btnSaveFamilia').prop('disabled', false);
+    $('#txtNombreFamilia').val("");
 });
 
 function GenerarCodigo(cantidad) {
@@ -51,24 +56,23 @@ function Copiar(element) {
     $temp.remove();
 }
 
-$("#btnSaveFamilia").click(function () {
+
+$("#btnCodigoFamiliaBC").click(function () {
     var valor = $('#lblTipoFamiliaRegistro').val()
-    var txtCodigoFamilia = $("#txtCodigoFamilia").val();
-    var txtNombreFamilia = $("#txtNombreFamilia").val();
-    if (txtCodigoFamilia.length == "") {
-        mostrarMSG(false, "El código de familia es obligatorio.", "divmsgFamilia");
-        $("#txtCodigoFamilia").focus();
-    }
-    else if (txtNombreFamilia.length == "") {
-        mostrarMSG(false, "El nombre de familia es obligatorio.", "divmsgFamilia");
-        $("#txtCodigoFamilia").focus();
+    if (valor == "N") {
+        Copiar('#lblCodigoFamilia');
+        mostrarMSG(true, "Código copiado al portapapeles.", "divmsgFamilia");
     }
     else {
-        if (valor == "N") { // Registro Nuevo
+        var txtCodigoFamilia = $("#txtCodigoFamilia").val();
+        if (txtCodigoFamilia.length != 20) {
+            mostrarMSG(false, "El código de familia no es vàlido.", "divmsgFamilia");
+            $("#txtCodigoFamilia").focus();
+        }
+        else {
             var data = {
-                'Option': 'nueva',
-                '_CodigoFamilia': txtCodigoFamilia,
-                '_NombreFamilia': txtNombreFamilia
+                'Option': 'buscarfamiliaporcodigo',
+                '_CodigoFamilia': txtCodigoFamilia
             }
             $.ajax({
                 type: "post",
@@ -78,26 +82,79 @@ $("#btnSaveFamilia").click(function () {
                 },
                 success: function (resultadoreg) {
                     console.log(resultadoreg);
+                    var nombre = "";
                     if (resultadoreg.length > 0) {
-                        if (resultadoreg[0]['mensaje'] == "Registro exitoso.") {
-                            location.reload();
-                        }
-                        else {
-                            mostrarMSG(false, resultadoreg[0]['mensaje'], "divmsgFamilia");
-                        }
+                        $('#btnCodigoFamiliaBC').prop('disabled', true);
+                        nombre = resultadoreg[0].nombre;
+                        $('#txtNombreFamilia').val(nombre);
+                        $('#txtCodigoFamilia').prop('readonly', true);
+                        $('#btnSaveFamilia').prop('disabled', false);
+                        mostrarMSG(true, "¡Familia encontrada!", "divmsgFamilia");
+                    }
+                    else {
+                        mostrarMSG(false, 'Código de familia no existe.', "divmsgFamilia");
                     }
                 },
                 error: function (xhr, status) {
                     mostrarMSG(false, status, "divmsgFamilia");
+                    $('#btnSaveFamilia').prop('disabled', true);
                 },
                 complete: function (xhr, status) {
                     console.log('Proceso Completado.');
                 }
             });
-        }
-        else {
 
         }
+
+    }
+});
+
+
+$("#btnSaveFamilia").click(function () {
+    var txtCodigoFamilia = $("#txtCodigoFamilia").val();
+    var txtNombreFamilia = $("#txtNombreFamilia").val();
+
+
+    if (txtCodigoFamilia.length == "") {
+        mostrarMSG(false, "El código de familia es obligatorio.", "divmsgFamilia");
+        $("#txtCodigoFamilia").focus();
+    }
+    else if (txtNombreFamilia.length == "") {
+        mostrarMSG(false, "El nombre de familia es obligatorio.", "divmsgFamilia");
+        $("#txtCodigoFamilia").focus();
+    }
+    else {
+
+        var data = {
+            'Option': 'nueva',
+            '_CodigoFamilia': txtCodigoFamilia,
+            '_NombreFamilia': txtNombreFamilia
+        }
+        $.ajax({
+            type: "post",
+            url: urlFamilia,
+            data: data,
+            beforeSend: function () {
+            },
+            success: function (resultadoreg) {
+                console.log(resultadoreg);
+                if (resultadoreg.length > 0) {
+                    if (resultadoreg[0]['mensaje'] == "Registro exitoso.") {
+                        location.reload();
+                    }
+                    else {
+                        mostrarMSG(false, resultadoreg[0]['mensaje'], "divmsgFamilia");
+                    }
+                }
+            },
+            error: function (xhr, status) {
+                mostrarMSG(false, status, "divmsgFamilia");
+            },
+            complete: function (xhr, status) {
+                console.log('Proceso Completado.');
+            }
+        });
+
     }
 });
 
@@ -119,23 +176,26 @@ function mostrarMSG(status, msg, div) {
     }, 5000);
 }
 
-
-$("#btnCodigoFamiliaBC").click(function () {
-    Copiar('#lblCodigoFamilia');
-    mostrarMSG(true, "Código copiado al portapapeles.", "divmsgFamilia");
+$("#btnCompartirPorWsp").click(function () {
+    var lblCodigoFamilia2 = $("#lblCodigoFamilia2").val();
+    Object.assign(document.createElement("a"), {
+        href: "whatsapp://send?text=Visita%20el%20siguiente%20enlace%20para%20registrarte%20" + urlDominio + "/registro?codigo=" + lblCodigoFamilia2
+    }).click();
 });
 
 $("#btnSeleccionarFamilia").click(function () {
+
     $('#lblTituloFamilia').html("Seleccionar Familia existente");
     $('#lblTextoBtnSaveFamilia').html("Guardar Cambios");
     $('#txtNombreFamilia').val('');
     $('#txtCodigoFamilia').val('');
     $('#lblCodigoFamilia').val('');
     $('#lblTextoBtnCodigoFamiliaBC').html("Buscar");
-    $('#btnCodigoFamiliaBC').prop('readonly', false);
+    $('#btnSaveFamilia').prop('disabled', true);
     $('#txtCodigoFamilia').prop('readonly', false);
     $('#txtNombreFamilia').prop('readonly', true);
     $('#lblTipoFamiliaRegistro').val("B");
+
 });
 
 

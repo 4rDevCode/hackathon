@@ -1,9 +1,10 @@
 <?php
 session_start();
 include_once "../cnx/global.php";
+$_SESSION['hackathon_menu'] = "Dashboard";
 
 if (empty($_SESSION['hackathon_active'])) {
-    header('location: index.php');
+    header('location: ../index.php');
 }
 
 ?>
@@ -20,7 +21,6 @@ if (empty($_SESSION['hackathon_active'])) {
     <!-- preloader area start -->
     <div id="preloader">
         <div class="loader"></div>
-        <input type="hidden" id="rutaclases" value="<?php print(URL_CLASSES); ?>">
     </div>
     <!-- preloader area end -->
     <!-- page container area start -->
@@ -43,39 +43,9 @@ if (empty($_SESSION['hackathon_active'])) {
         <!-- sidebar menu area end -->
         <!-- main content area start -->
         <div class="main-content">
-            <!-- header area start -->
-            <div class="header-area">
-                <div class="row align-items-center">
-                    <!-- nav and search button -->
-                    <div class="col-md-6 col-sm-8 clearfix">
-                        <div class="nav-btn pull-left">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                        <div class="search-box pull-left">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- header area end -->
-            <!-- page title area start -->
-            <div class="page-title-area">
-                <div class="row align-items-center">
-                    <div class="col-sm-6">
-                        <div class="breadcrumbs-area clearfix">
-                            <h4 class="page-title pull-left">Dashboard</h4>
-                            <ul class="breadcrumbs pull-left">
-                                <li><a href="index.php">Home</a></li>
-                                <li><span>Dashboard</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 clearfix">
-                        <?php include_once('../assets/includes/miperfil.php'); ?>
-                    </div>
-                </div>
-            </div>
+            <?php
+            include_once('../assets/includes/main-content.php');
+            ?>
             <!-- page title area end -->
             <div class="main-content-inner">
                 <div class="sales-report-area mt-5 mb-5">
@@ -100,111 +70,112 @@ if (empty($_SESSION['hackathon_active'])) {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6" name="divNuevoUsuario" id="divNuevoUsuario">
-                            <div class="row">
-                                <div class="col-md-12 mt-2 mb-6">
-                                    <div class="card">
+                        <?php if ($_SESSION['hackathon_fam_id'] == 0) { ?>
+                            <div class="col-xl-5 col-lg-12 mt-0">
+                                <div class="card">
+                                    <div class="card-body bg1">
+                                        <h4 class="header-title text-white">
+                                            Aún no tienes una familia registrada
+                                        </h4>
                                         <div class="card-body">
-                                            <button type="button" class="btn btn-primary btn-flat btn-lg mt-3"
+                                            <button type="button" class="btn btn-secundary btn-flat btn-lg mt-3"
                                                 data-toggle="modal" data-target="#modalFamilia" id="btnRegistrarFamilia"
-                                                name="btnRegistrarFamilia">Registrar
-                                                Familia</button>
-                                            <button type="button" class="btn btn-primary btn-flat btn-lg mt-3"
-                                                data-toggle="modal" data-target="#modalFamilia"
-                                                id="btnSeleccionarFamilia" name="btnSeleccionarFamilia">Seleccionar
-                                                Familia
+                                                name="btnRegistrarFamilia" style="width:100%">Registrar una nueva
+                                                familia</button> <br>
+                                            <button type="button" class="btn btn-secundary btn-flat btn-lg mt-3"
+                                                data-toggle="modal" data-target="#modalFamilia" style="width:100%"
+                                                id="btnSeleccionarFamilia" name="btnSeleccionarFamilia">Seleccionar una
+                                                familia ya registrada
                                             </button>
-                                        </div>
-                                        <span class="info-box-number" id="lblCodigoFamilia" style="visibility: hidden"
-                                            name="lblCodigoFamilia"></span>
-                                        <input type="hidden" id="lblTipoFamiliaRegistro" name="lblTipoFamiliaRegistro"
-                                            value="">
-                                        <div class="modal fade" id="modalFamilia">
-                                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title"><span class="info-box-number"
-                                                                id="lblTituloFamilia" name="lblTituloFamilia"></span>
-                                                        </h5>
-                                                        <button type="button" class="close"
-                                                            data-dismiss="modal"><span>&times;</span></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="form-group">
-                                                            <label class="col-form-label">Código de Familia:</label>
-                                                            <div class="input-group mb-3">
+                                            <div class="card">
+                                            <span class="info-box-number" id="lblCodigoFamilia" style="display: none"
+                                                name="lblCodigoFamilia"></span>                                                
+                                            <input type="hidden" id="lblTipoFamiliaRegistro" name="lblTipoFamiliaRegistro"
+                                                value="">
+                                            <div class="modal fade" id="modalFamilia">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title"><span class="info-box-number"
+                                                                    id="lblTituloFamilia" name="lblTituloFamilia"></span>
+                                                            </h5>
+                                                            <button type="button" class="close"
+                                                                data-dismiss="modal"><span>&times;</span></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="form-group">
+                                                                <label class="col-form-label">Código de Familia:</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input class="form-control" type="text" value=""
+                                                                        id="txtCodigoFamilia" name="txtCodigoFamilia"
+                                                                        style="text-align: center">
+                                                                    <div class="input-group-prepend">
+                                                                        <button class="btn btn-outline-secondary"
+                                                                            type="button" id="btnCodigoFamiliaBC"
+                                                                            name="btnCodigoFamiliaBC"><span
+                                                                                id="lblTextoBtnCodigoFamiliaBC"
+                                                                                name="lblTextoBtnCodigoFamiliaBC"></span></button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-form-label">Nombre de Familia:</label>
                                                                 <input class="form-control" type="text" value=""
-                                                                    id="txtCodigoFamilia" name="txtCodigoFamilia"
-                                                                    style="text-align: center">
-                                                                <div class="input-group-prepend">
-                                                                    <button class="btn btn-outline-secondary"
-                                                                        type="button" id="btnCodigoFamiliaBC"
-                                                                        name="btnCodigoFamiliaBC"><span
-                                                                            id="lblTextoBtnCodigoFamiliaBC"
-                                                                            name="lblTextoBtnCodigoFamiliaBC"></span></button>
+                                                                    id="txtNombreFamilia" name="txtNombreFamilia">
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <div class="col-sm-12 ">
+                                                                    <div id="divmsgFamilia" name="divmsgFamilia"
+                                                                        class="alert-dismiss">
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="form-group">
-                                                            <label class="col-form-label">Nombre de Familia:</label>
-                                                            <input class="form-control" type="text" value=""
-                                                                id="txtNombreFamilia" name="txtNombreFamilia">
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">Cancelar</button>
+                                                            <button type="button" class="btn btn-primary"
+                                                                id="btnSaveFamilia" name="btnSaveFamilia"><span
+                                                                    id="lblTextoBtnSaveFamilia"
+                                                                    name="lblTextoBtnSaveFamilia"></span></button>
                                                         </div>
-                                                        <div class="form-group row">
-                                                            <div class="col-sm-12 ">
-                                                                <div id="divmsgFamilia" name="divmsgFamilia"
-                                                                    class="alert-dismiss">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="modal-footer">
-
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-dismiss="modal">Cancelar</button>
-                                                        <button type="button" class="btn btn-primary"
-                                                            id="btnSaveFamilia" name="btnSaveFamilia"><span
-                                                                id="lblTextoBtnSaveFamilia"
-                                                                name="lblTextoBtnSaveFamilia"></span></button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="row">
-                                <div class="col-md-6 mt-5 mb-3">
-                                    <div class="card">
-                                        <div class="seo-fact sbg1">
-                                            <div class="p-4 d-flex justify-content-between align-items-center">
-                                                <div class="seofct-icon"><i class="ti-thumb-up"></i>
 
-                                                </div>
-                                                <h2>0</h2>
-                                            </div>
-                                            <!--<canvas id="seolinechart2" height="50"></canvas>-->
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mt-md-5 mb-3">
-                                    <div class="card">
-                                        <div class="seo-fact sbg2">
-                                            <div class="p-4 d-flex justify-content-between align-items-center">
-                                                <div class="seofct-icon"><i class="ti-share"></i> Productos en Mochila
-                                                </div>
-                                                <h2>4</h2>
-                                            </div>
-                                            <!--<canvas id="seolinechart2" height="50"></canvas>-->
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        <?php } else {
+                            ?>
+                            <div class="col-xl-6 col-lg-12 mt-0">
+                                <div class="card">
+                                    <div class="card-body bg1">
+                                        <h4 class="header-title text-white">
+                                            <?php echo $_SESSION['hackathon_fam_name']; ?>
+                                        </h4>
+                                        <input class="form-control" type="text" value="<?php echo $_SESSION['hackathon_fam_code'];?>" id="lblCodigoFamilia2"
+                                            name="lblCodigoFamilia2" style="text-align: center">
+                                        <span class="info-box-number" style="color:#FFF">
+
+                                        </span>
+
+                                        <button type="button" class="btn btn-secundary btn-flat btn-lg mt-3"
+                                            data-toggle="modal" data-target="#modalFamilia" id="btnCompartirPorWsp"
+                                            name="btnCompartirPorWsp" style="width:100%">Compartir link de registro por
+                                            Whatsapp</button> <br>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php }
+
+                        ?>
+
                         <div class="col-xl-4 col-lg-5 col-md-12 mt-5">
+
                             <div class="card">
                                 <div class="card-body">
                                     <div class="d-sm-flex flex-wrap justify-content-between mb-4 align-items-center">
@@ -274,6 +245,7 @@ if (empty($_SESSION['hackathon_active'])) {
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                         <div class="col-xl-4 col-lg-5 col-md-12 mt-5">
                             <div class="card">

@@ -13,6 +13,10 @@ define("DB_ENCODE", "utf8");
 //Definimos una constante como nombre del proyecto
 define("SYSTEM_NAME", "AylluTanta");
 //Definimos una constante como nombre del proyecto
-define("URL_CLASSES", "http://127.0.0.1/hackathon/assets/system_classes/");
+$domain = "https://ferbecs.com/ayllutanta";
+define("DOMAIN", $domain);
+$domain = "http://192.168.1.8";
+//Definimos una constante como nombre del proyecto
+define("URL_CLASSES", $domain."/hackathon/assets/system_classes/");
 
 ?>

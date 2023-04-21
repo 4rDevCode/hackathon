@@ -1,6 +1,7 @@
 <?php
 session_start();
 include_once "cnx/global.php";
+require_once "cnx/cnx.php";
 ?>
 <!doctype html>
 <html class="no-js" lang="en">
@@ -51,6 +52,33 @@ include_once "cnx/global.php";
                         <p>- Frase romántica 2 - </p>
                     </div>
                     <div class="login-form-body">
+                        <?php
+                        $id = 0;
+                        if (!empty($_GET)) {
+                            if (!empty($_GET['codigo'])) {
+                                //Ingresaron código                        
+                                $codigo = $_GET['codigo'];
+                                $sql = "select id, nombre from tbl_familia where codigo='" . $codigo . "' and estado = 'A';";
+                                $ejecuta = mysqli_query($conexion, $sql);
+                                $datos = array();
+                                $name = "";
+                                while ($row = mysqli_fetch_array($ejecuta)) {
+                                    $id = intval($row['id']);
+                                    $name = strval($row['nombre']);
+                                }
+                                $close = mysqli_close($conexion);
+                                if ($id > 0) {
+                                    ?>
+                                    <div class="form-gp">
+                                        <label for="exampleInputName1">Familia:</label>
+                                        <input type="text" id="txtFamilia" readonly name="txtFamilia" value="<?php echo $name; ?>">
+                                    </div>
+                                    <?php
+                                }
+                            }
+                        }
+                        ?>
+                        <input type="hidden" id="idFamilia" name="idFamilia" value="<?php echo $id; ?>">
                         <div class="form-gp">
                             <label for="exampleInputName1">Número de documento</label>
                             <input type="text" id="txtNroDoc" name="txtNroDoc">

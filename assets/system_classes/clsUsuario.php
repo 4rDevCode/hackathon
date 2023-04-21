@@ -38,7 +38,10 @@ if (isset($_POST['Option'])) {
                 $_SESSION['hackathon_rol'] = 2;
             }*/
             $_SESSION['hackathon_email'] = $datosusuario[2];
-            $_SESSION['hackathon_dni'] = $datosusuario[3];         
+            $_SESSION['hackathon_dni'] = $datosusuario[3];   
+            $_SESSION['hackathon_fam_id'] = $datosusuario[4];   
+            $_SESSION['hackathon_fam_code'] = $datosusuario[5];   
+            $_SESSION['hackathon_fam_name'] = $datosusuario[6];         
         } 
         $return = array();
         $return[] = array('msj' => 'OK', 'mensaje' => utf8_encode($resultado));
@@ -48,7 +51,7 @@ if (isset($_POST['Option'])) {
 
 
     if ($option == "registrar") {
-
+        $idFamilia = $_POST['_idFamilia'];
         $nrodoc = $_POST['_nrodoc'];
         $nombres = $_POST['_nombres'];
         $apellidos = $_POST['_apellidos'];
@@ -56,7 +59,7 @@ if (isset($_POST['Option'])) {
         $password = $_POST['_password'];
 
         $resultado = "";
-        $sql = "CALL sp_registrar_usuario('".$nrodoc."', '".$apellidos."', '".$nombres."', '".$email."', '".$password."', @msj);";
+        $sql = "CALL sp_registrar_usuario(".$idFamilia.",'".$nrodoc."', '".$apellidos."', '".$nombres."', '".$email."', '".$password."', @msj);";
         $ejecuta = mysqli_query($conexion, $sql);
         $out = mysqli_query($conexion, "select @msj as Resultado;");
         $datos = mysqli_fetch_array($out);
@@ -79,6 +82,9 @@ if (isset($_POST['Option'])) {
             }*/
             $_SESSION['hackathon_email'] = $datosusuario[2];
             $_SESSION['hackathon_dni'] = $datosusuario[3];         
+            $_SESSION['hackathon_fam_id'] = $datosusuario[4];   
+            $_SESSION['hackathon_fam_code'] = $datosusuario[5];   
+            $_SESSION['hackathon_fam_name'] = $datosusuario[6];   
         } 
         $return = array();
         $return[] = array('msj' => 'OK', 'mensaje' => utf8_encode($resultado));

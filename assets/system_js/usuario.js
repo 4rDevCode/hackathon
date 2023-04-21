@@ -55,6 +55,7 @@ $("#btnAcceder").click(function () {
 
 
 $("#btnRegisrar").click(function () {
+    var idFamilia = $("#idFamilia").val();
     var txtNroDoc = $("#txtNroDoc").val();
     var txtNombres = $("#txtNombres").val();
     var txtApellidos = $("#txtApellidos").val();
@@ -93,6 +94,7 @@ $("#btnRegisrar").click(function () {
     else{
         var data = {
             'Option': 'registrar',
+            '_idFamilia': idFamilia,
             '_nrodoc': txtNroDoc,
             '_nombres': txtNombres,
             '_apellidos': txtApellidos,
@@ -149,3 +151,7 @@ function mostrarMSG(status, msg) {
         $("#divmsg").fadeOut('slow');
     }, 5000);
 }
+
+
+$("#txtFamilia").focus();
+$("#txtNroDoc").focus();

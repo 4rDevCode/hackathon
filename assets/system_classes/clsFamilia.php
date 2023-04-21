@@ -21,9 +21,35 @@ if (isset($_POST['Option'])) {
         $out = mysqli_query($conexion, "select @msj as Resultado;");
         $datos = mysqli_fetch_array($out);
         $resultado = $datos['Resultado'];
+        $datosobtenidos = explode('$', $resultado);
+        if ($datosobtenidos[0] == "Registro exitoso.") {            
+            $datosusuario = explode("|", $datosobtenidos[1]);
+            $_SESSION['hackathon_fam_id'] = $datosusuario[0];
+            $_SESSION['hackathon_fam_code'] = $datosusuario[1];
+            $_SESSION['hackathon_fam_name'] = $datosusuario[2];
+            $resultado='Registro exitoso.';
+        }
         $return = array();
+
         $return[] = array('msj' => 'OK', 'mensaje' => utf8_encode($resultado));
         $json_string = json_encode($return);
         echo $json_string;
     }
+    if ($option == "buscarfamiliaporcodigo") {
+        $CodigoFamilia = $_POST['_CodigoFamilia'];
+        $resultado = "";
+        $sql = "select id, nombre from tbl_familia where codigo='" . $CodigoFamilia . "' and estado = 'A';";
+        $ejecuta = mysqli_query($conexion, $sql);
+        $datos = array();
+        $name = "";
+        while ($row = mysqli_fetch_array($ejecuta)) {
+            $datos[] = array(
+                'id' => intval($row['id']),
+                'nombre' => strval($row['nombre'])
+            );
+        }
+        $close = mysqli_close($conexion); // or die("Ha sucedido un error inexperado en la desconexion de la base de datos");
+        echo $json_string = json_encode($datos, JSON_UNESCAPED_UNICODE);
+    }
+
 }
