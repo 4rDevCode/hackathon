@@ -48,6 +48,7 @@ if (isset($_POST['Option'])) {
         $return = array();
         $return[] = array('msj' => 'OK', 'mensaje' => $resultado);
         $json_string = json_encode($return);
+        mysqli_close($conexion);
         echo $json_string;
     }
 

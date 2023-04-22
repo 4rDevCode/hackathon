@@ -33,6 +33,7 @@ if (isset($_POST['Option'])) {
 
         $return[] = array('msj' => 'OK', 'mensaje' => utf8_encode($resultado));
         $json_string = json_encode($return);
+        mysqli_close($conexion);
         echo $json_string;
     }
     if ($option == "buscarfamiliaporcodigo") {
