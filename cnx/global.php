@@ -15,7 +15,7 @@ define("SYSTEM_NAME", "AylluTanta");
 //Definimos una constante como nombre del proyecto
 $domain = "https://ferbecs.com/ayllutanta";
 define("DOMAIN", $domain);
-$domain = "http://192.168.1.11";
+$domain = "http://192.168.1.6";
 //Definimos una constante como nombre del proyecto
 define("URL_CLASSES", $domain."/hackathon/assets/system_classes/");
 

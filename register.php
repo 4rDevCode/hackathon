@@ -59,21 +59,25 @@ require_once "cnx/cnx.php";
                                 //Ingresaron código                        
                                 $codigo = $_GET['codigo'];
                                 $sql = "select id, nombre from tbl_familia where codigo='" . $codigo . "' and estado = 'A';";
-                                $ejecuta = mysqli_query($conexion, $sql);
-                                $datos = array();
-                                $name = "";
-                                while ($row = mysqli_fetch_array($ejecuta)) {
-                                    $id = intval($row['id']);
-                                    $name = strval($row['nombre']);
-                                }
-                                $close = mysqli_close($conexion);
-                                if ($id > 0) {
-                                    ?>
-                                    <div class="form-gp">
-                                        <label for="exampleInputName1">Familia:</label>
-                                        <input type="text" id="txtFamilia" readonly name="txtFamilia" value="<?php echo $name; ?>">
-                                    </div>
-                                    <?php
+                                try {
+                                    $ejecuta = mysqli_query($conexion, $sql);
+                                    $datos = array();
+                                    $name = "";
+                                    while ($row = mysqli_fetch_array($ejecuta)) {
+                                        $id = intval($row['id']);
+                                        $name = strval($row['nombre']);
+                                    }
+                                    $close = mysqli_close($conexion);
+                                    if ($id > 0) {
+                                        ?>
+                                        <div class="form-gp">
+                                            <label for="exampleInputName1">Familia:</label>
+                                            <input type="text" id="txtFamilia" readonly name="txtFamilia" value="<?php echo $name; ?>">
+                                        </div>
+                                        <?php
+                                    }
+                                } catch (Exception $e) {
+                                    echo 'Excepción capturada: ', $e->getMessage(), "\n";
                                 }
                             }
                         }
