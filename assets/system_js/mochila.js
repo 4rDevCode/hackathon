@@ -10,6 +10,7 @@ $("#btnRegistrarMochila").click(function () {
 
 
 function editar(id,descripcion, peso,estado){
+    $('#lblTituloMochila').html("Editar Mochila");
     $('#lblTextoBtnSaveMochila').html("Editar");
     $("#idMochila").val(id);
 	$("#idMochila").attr("value",id);

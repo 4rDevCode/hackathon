@@ -13,7 +13,7 @@
                     <ul class="collapse">
                         <li><a href="mochilas.php">Mochilas</a></li>
                         <li><a href="items.php">Items</a></li>
-                        <li><a href="datatable.html">Por vencerse</a></li>
+                        <li><a href="inventario.php">Inventario</a></li>
                     </ul>
                 </li>
             </ul>

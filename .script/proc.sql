@@ -1,5 +1,42 @@
 
 DELIMITER $$
+DROP PROCEDURE IF EXISTS `sp_item`$$ 
+
+CREATE PROCEDURE `sp_item`(
+    _id INT,
+    _id_mochila INT,
+    _tipo varchar(500),
+  _nombre VARCHAR(500),
+  _cantidad DECIMAL(8,2) ,
+   _fecha date ,
+  _estado CHAR(1),
+  inout _msj VARCHAR(200)
+	)
+BEGIN		
+	IF(_id=0) THEN
+		IF((SELECT COUNT(*) FROM tbl_items WHERE nombre = _nombre and id_mochila = _id_mochila and tipo = _tipo and fecha_vencimiento = _fecha) > 0) THEN
+			set _msj = 'Item ya se encuentra registrada.';			
+		ELSE			
+			INSERT INTO tbl_items (id_mochila, tipo,nombre,cantidad, fecha_vencimiento,estado)
+			VALUES(_id_mochila, _tipo,_nombre,_cantidad,_fecha,_estado);                   
+          
+			SET _msj =  'Registro Exitoso.';
+		END IF;
+	ELSE 
+		IF((SELECT COUNT(*) FROM tbl_items WHERE nombre = _nombre and id_mochila = _id_mochila and tipo = _tipo and fecha_vencimiento = _fecha and id <> _id) > 0) THEN
+			set _msj =  'Item ya se encuentra registrada.';			
+		ELSE			
+			UPDATE tbl_items 
+			SET 
+				nombre = _nombre, tipo = _tipo, cantidad = _cantidad, fecha_vencimiento = _fecha, estado = _estado
+			WHERE id=_id;		
+			SET _msj =  'Edición Exitosa.';
+		END IF;
+	END IF;
+END$$
+DELIMITER ;
+
+DELIMITER $$
 DROP PROCEDURE IF EXISTS `sp_mochila`$$ 
 
 CREATE PROCEDURE `sp_mochila`(

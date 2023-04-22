@@ -105,7 +105,6 @@ if (empty($_SESSION['hackathon_active'])) {
                                                     <option value="I">Inactivo</option>
                                                 </select>
                                             </div>
-
                                         </div>
                                         <div class="col-sm-12 ">
                                             <div id="divmsg" name="divmsg" class="alert-dismiss">

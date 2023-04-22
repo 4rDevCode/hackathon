@@ -23,7 +23,7 @@ if (isset($_POST['Option'])) {
                 'tipo' => strval($row['tipo']),
                 'nombre' => strval($row['nombre']),
                 'cantidad' => intval($row['cantidad']),
-                'fecha_vencimiento' => strval($row['fecha_vencimiento']),
+                'fecha' => strval($row['fecha_vencimiento']),
                 'est' => strval($row['est']),
                 'estado' => strval($row['estado'])
             );
@@ -47,13 +47,15 @@ if (isset($_POST['Option'])) {
         echo $json_string = json_encode($datos, JSON_UNESCAPED_UNICODE);
     }
     if ($option == "RegistrarItem") {
+        $idmochila = $_POST['_idmochila'];
         $id = $_POST['_id'];
-        $id_familia = $_SESSION['hackathon_fam_id'];
-        $descripcion = $_POST['_descripcion'];
-        $peso = $_POST['_peso'];
+        $tipo = $_POST['_tipo'];
+        $nombre = $_POST['_nombre'];
+        $cantidad = $_POST['_cantidad'];
+        $fecha = $_POST['_fecha'];
         $estado = $_POST['_estado'];
         $resultado = "";
-        $sql = "CALL sp_item(" . $id . ", " . $id_familia . ",'" . $descripcion . "'," . $peso . ",'" . $estado . "',@msj);";
+        $sql = "CALL sp_item(" . $id . ", " . $idmochila . ",'" . $tipo . "','" . $nombre . "'," . $cantidad . ",'" . $fecha . "','" . $estado . "',@msj);";
         $ejecuta = mysqli_query($conexion, $sql);
         $out = mysqli_query($conexion, "select @msj as Resultado;");
         $datos = mysqli_fetch_array($out);

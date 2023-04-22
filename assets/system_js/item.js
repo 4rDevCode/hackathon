@@ -8,28 +8,21 @@ $("#btnRegistrarItem").click(function () {
     $('#txtNombre').val("");
     $('#txtCantidad').val("1");
     $('#sltEstado').val("A");
-
-  
 });
 
-/*
-$('#ckbVence').change(function () {
-    if (!$(this).is(':checked')) {
-        $('#txtFechaVencimiento').prop('readonly', true);
-    }
-    else {
-        $('#txtFechaVencimiento').prop('readonly', false);
-    }
-});
-*/
 function editar(id, tipo, nombre, cantidad, fecha, estado) {
+    $('#lblTituloItem').html("Editar Item");
     $('#lblTextoBtnSaveItem').html("Editar");
     $("#idItem").val(id);
     $("#idItem").attr("value", id);
-    $("#txtDescripcion").val(descripcion);
-    $("#txtDescripcion").attr("value", descripcion);
-    $("#txtPeso").val(peso);
-    $("#txtPeso").attr("value", peso);
+    $("#sltTipo").val(tipo);
+    $("#sltTipo").attr("value", tipo);
+    $("#txtNombre").val(nombre);
+    $("#txtNombre").attr("value", nombre);
+    $("#txtCantidad").val(cantidad);
+    $("#txtCantidad").attr("value", cantidad);
+    $("#txtFechaVencimiento").val(fecha);
+    $("#txtFechaVencimiento").attr("value", fecha);
     $("#sltEstado").val(estado);
     $("#sltEstado").attr("value", estado);
 }
@@ -113,16 +106,16 @@ function listar(id) {
                         <td>`+ resultado[i].nombre + `</td>
                         <td>
                             <div class="progress" style="height: 8px;">
-                                <div class="progress-bar" role="progressbar" style="width: `+ resultado[i].cantidad * 2 + `%;"
+                                <div class="progress-bar" role="progressbar" style="width: `+ resultado[i].cantidad + `%;"
                                     aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">                                                             
                                 </div>                                                      
                             </div>
                             <span>`+ resultado[i].cantidad + `</span>
                         </td>
-                        <td>`+ resultado[i].fecha_vencimiento + `</td>
+                        <td>`+ resultado[i].fecha + `</td>
                         <td><span class="status-p bg-primary">`+ resultado[i].est + `</span></td>
                         <td>
-                            <ul class="d-flex justify-content-center" data-toggle="modal" data-target="#modalItem" onclick="editar(`+ resultado[i].id + `,'` + resultado[i].tipo + `','` + resultado[i].nombre + `',`+ resultado[i].cantidad + `,'` + resultado[i].fecha + `','` + resultado[i].estado + `')">
+                            <ul class="d-flex justify-content-center" data-toggle="modal" data-target="#modalItem" onclick="editar(`+ resultado[i].id + `,'` + resultado[i].tipo + `','` + resultado[i].nombre + `',` + resultado[i].cantidad + `,'` + resultado[i].fecha + `','` + resultado[i].estado + `')">
                                 <li class="mr-3"><a href="#" class="text-secondary"><i
                                             class="fa fa-edit"></i> Editar</a></li>
                                 </li>
@@ -133,7 +126,7 @@ function listar(id) {
                 $("#bodytblReporte").html(trd);
             }
             else {
-                $("#bodytblReporte").html("");                                                                                                  
+                $("#bodytblReporte").html("");
             }
         },
         error: function (xhr, status) {
@@ -148,25 +141,32 @@ $("#btnSaveItem").click(function () {
 });
 
 function Registrar_Item() {
+
+    var sltMochila = $("#sltMochila").val();
     var idItem = $("#idItem").val();
-    var txtDescripcion = $("#txtDescripcion").val();
-    var txtPeso = $("#txtPeso").val();
+    var sltTipo = $("#sltTipo").val();
+    var txtNombre = $("#txtNombre").val();
+    var txtCantidad = $("#txtCantidad").val();
+    var txtFechaVencimiento = $("#txtFechaVencimiento").val();
     var sltEstado = $("#sltEstado").val();
 
-    if (txtDescripcion.length == "") {
-        mostrarMSG(false, "El campo descripción es obligatorio.");
-        $("#txtDescripcion").focus();
+    if (txtNombre.length == "") {
+        mostrarMSG(false, "El campo nombre es obligatorio.");
+        $("#txtNombre").focus();
     }
-    else if (txtPeso.length == "") {
-        mostrarMSG(false, "El campo peso es obligatorio.");
-        $("#txtPeso").focus();
+    else if (txtCantidad.length == "") {
+        mostrarMSG(false, "El campo cantidad es obligatorio.");
+        $("#txtCantidad").focus();
     }
     else {
         var DATA = {
             'Option': 'RegistrarItem',
+            '_idmochila': sltMochila,
             '_id': idItem,
-            '_descripcion': txtDescripcion,
-            '_peso': txtPeso,
+            '_tipo': sltTipo,
+            '_nombre': txtNombre,
+            '_cantidad': txtCantidad,
+            '_fecha': txtFechaVencimiento,
             '_estado': sltEstado
         }
         $.ajax({
@@ -179,7 +179,8 @@ function Registrar_Item() {
                     if (resultadoreg[0]['mensaje'].includes('Exitos')) {
                         $("#modalItem").hide();
                         $('#modalItem').modal('hide');
-                        listar();
+                        var id = $("#sltMochila").val();
+                        listar(id);
                     }
                     else {
                         mostrarMSG(false, resultadoreg[0]['mensaje']);
