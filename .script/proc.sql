@@ -1,6 +1,7 @@
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS `sp_mochila`$$ 
+
 CREATE PROCEDURE `sp_mochila`(
 	_id INT,
   _id_familia INT,
