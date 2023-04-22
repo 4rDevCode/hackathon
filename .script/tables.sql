@@ -12,3 +12,13 @@ CREATE TABLE `tbl_usuario` (
   `fechareg` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_spanish_ci;
 
+
+CREATE TABLE `tbl_items` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `id_mochila` INT NULL,
+  `tipo` VARCHAR(500) NULL,
+  `nombre` VARCHAR(500) NULL,
+  `cantidad` DECIMAL(8,2) NULL,
+  `fecha_vencimiento` DATE NULL,
+  `estado` CHAR(1) NULL,
+  PRIMARY KEY (`id`));

@@ -77,7 +77,7 @@ require_once "cnx/cnx.php";
                                         <?php
                                     }
                                 } catch (Exception $e) {
-                                    echo 'Excepción capturada: ', $e->getMessage(), "\n";
+                                    
                                 }
                             }
                         }
