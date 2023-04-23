@@ -179,7 +179,7 @@ function mostrarMSG(status, msg, div) {
 $("#btnCompartirPorWsp").click(function () {
     var lblCodigoFamilia2 = $("#lblCodigoFamilia2").val();
     Object.assign(document.createElement("a"), {
-        href: "whatsapp://send?text=Visita%20el%20siguiente%20enlace%20para%20registrarte%20" + urlDominio + "/registro?codigo=" + lblCodigoFamilia2
+        href: "whatsapp://send?text=Visita%20el%20siguiente%20enlace%20para%20registrarte%20" + urlDominio + "/registro.php?codigo=" + lblCodigoFamilia2
     }).click();
 });
 

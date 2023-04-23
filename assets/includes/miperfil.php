@@ -6,7 +6,7 @@
         <?php echo $_SESSION['hackathon_datos']; ?><i class="fa fa-angle-down"></i>
     </h4>
     <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">Mi Perfil</a>
+        <a class="dropdown-item" href="editarPerfil.php">Mi Perfil</a>
         <a class="dropdown-item" href="logout.php">Cerrar Sesión</a>
     </div>
 </div>

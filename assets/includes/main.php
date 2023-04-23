@@ -16,6 +16,23 @@
                         <li><a href="inventario.php">Inventario</a></li>
                     </ul>
                 </li>
+                <li>
+                    <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>Reducir riesgos 
+                            en casa</span></a>
+                    <ul class="collapse">
+                        <li><a href="re_informacion.php">informacion</a></li>
+
+                        <li><a href="foto_zonas_s.php">Fotografias de zonas seguras</a></li>
+                        <li><a href="foto_zonas_f.php">Lugares en los que suele permanecer cada familiar</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="croquis.php" aria-expanded="true"><i class="ti-dashboard"></i><span>Croquis</span></a>
+                </li>
+                <li>
+                    <a href="organizaFamilia.php" aria-expanded="true"><i class="ti-dashboard"></i><span>Organiza tu familia</span></a>
+                </li>
+                
             </ul>
         </nav>
     </div>
