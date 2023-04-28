@@ -150,3 +150,34 @@ BEGIN
 		SET _msj = concat('Bienvenido$',@datausu);
 	END IF;
 END$$
+
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS `sp_notificacion`$$ 
+
+CREATE PROCEDURE `sp_notificacion`(
+  inout _msj VARCHAR(200)
+	)
+BEGIN	
+	set _msj = '';	
+	if(exists(select * from tbl_notificacion where estado = 'A')) then
+		set _msj = (select msg from tbl_notificacion where estado = 'A' limit 1);	
+        set @id = (select id from tbl_notificacion where estado = 'A' limit 1);
+        update tbl_notificacion set estado = 'I' where id = @id;
+    end if;
+END$$
+DELIMITER ;
+
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS `sp_reg_notificacion`$$ 
+
+CREATE PROCEDURE `sp_reg_notificacion`(
+notificacion varchar(500),
+  inout _msj VARCHAR(200)
+	)
+BEGIN	
+	insert into tbl_notificacion(msg, estado) values(notificacion, 'A');
+    set _msj = "ok";
+END$$
+DELIMITER ;

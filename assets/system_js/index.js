@@ -1,5 +1,6 @@
 var urlIndex = $("#rutaclases").val() + "clsIndex.php";
 var urlFamilia = $("#rutaclases").val() + "clsFamilia.php";
+var urlNotificacion = $("#rutaclases").val() + "clsNotificacion.php";
 var urlDominio = $("#rutadominio").val();
 
 $('#lblCodigoFamilia2').prop('readonly', true);
@@ -176,6 +177,7 @@ function mostrarMSG(status, msg, div) {
     }, 5000);
 }
 
+
 $("#btnCompartirPorWsp").click(function () {
     var lblCodigoFamilia2 = $("#lblCodigoFamilia2").val();
     Object.assign(document.createElement("a"), {
@@ -199,3 +201,45 @@ $("#btnSeleccionarFamilia").click(function () {
 });
 
 
+
+function mostrarNotificación() {
+    var lbliduser = $("#lbliduser").val();
+    if (lbliduser != 1) {
+        $("#frmNotificacion").html("");
+    }
+}
+
+$("#btnEnviarNotificación").click(function () {
+    var txtNotificacion = $("#txtNotificacion").val();
+    if (txtNotificacion.length == "") {
+        alert("¡Escriba la notificación por favor!");
+        $("#txtNotificacion").focus();
+    }
+    else {
+        var data = {
+            'Option': 'reg_notificacion',
+            '_notificacion': txtNotificacion
+        }
+        $.ajax({
+            type: "post",
+            url: urlNotificacion,
+            data: data,
+            beforeSend: function () {
+            },
+            success: function (resultadoreg) {
+                console.log(resultadoreg);
+                if (resultadoreg.length > 0) {
+                    $('#txtNotificacion').val("");
+                }
+            },
+            error: function (xhr, status) {
+               alert("¡Error!");
+            },
+            complete: function (xhr, status) {
+
+            }
+        });
+    }
+
+});
+mostrarNotificación();

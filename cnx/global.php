@@ -25,7 +25,7 @@ define("DB_ENCODE", "utf8");
 //Definimos una constante como nombre del proyecto
 define("SYSTEM_NAME", "AylluTanta");
 //Definimos una constante como nombre del proyecto
-$domain = "http://ayllutanta.ferbecs.com";
+$domain = "http://192.168.1.11/";
 define("DOMAIN", $domain);
 //$domain = "http://192.168.1.12";
 //Definimos una constante como nombre del proyecto

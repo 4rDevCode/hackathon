@@ -14,7 +14,7 @@ if (isset($_POST['Option'])) {
     if ($option == "listar") {
         $id = $_POST['_idmochila'];
         $sql = "select id, tipo, nombre, cantidad, fecha_vencimiento, case when(estado = 'A') then 'Activo' else 'Inactivo' end as est, estado 
-                from tbl_items where id_mochila = ".$id." order by estado, nombre;";
+                from tbl_items where id_mochila = " . $id . " order by estado, nombre;";
         $ejecuta = mysqli_query($conexion, $sql);
         $datos = array();
         while ($row = mysqli_fetch_array($ejecuta)) {
@@ -31,10 +31,33 @@ if (isset($_POST['Option'])) {
         $close = mysqli_close($conexion); // or die("Ha sucedido un error inexperado en la desconexion de la base de datos");
         echo $json_string = json_encode($datos, JSON_UNESCAPED_UNICODE);
     }
+    if ($option == "inventario") {
+        $id = $_SESSION['hackathon_fam_id'];
+        $sql = "select 
+                    m.descripcion, i.tipo, i.nombre, i.cantidad, i.fecha_vencimiento, i.estado, case when(i.estado = 'A') then 'Activo' else 'Inactivo' end as est,
+                    DATEDIFF (i.fecha_vencimiento, convert(now(),date)) as dias
+                from tbl_items i inner join tbl_mochila m on m.id = i.id_mochila where m.id_familia = " . $id . ";";
+        $ejecuta = mysqli_query($conexion, $sql);
+        $datos = array();
+        while ($row = mysqli_fetch_array($ejecuta)) {
+            $datos[] = array(
+                'descripcion' => strval($row['descripcion']),
+                'tipo' => strval($row['tipo']),
+                'nombre' => strval($row['nombre']),
+                'cantidad' => strval($row['cantidad']),
+                'fecha_vencimiento' => strval($row['fecha_vencimiento']),
+                'est' => strval($row['est']),
+                'dias' => strval($row['dias']),
+                'estado' => strval($row['estado'])
+            );
+        }
+        $close = mysqli_close($conexion); // or die("Ha sucedido un error inexperado en la desconexion de la base de datos");
+        echo $json_string = json_encode($datos, JSON_UNESCAPED_UNICODE);
+    }
     if ($option == "llenarMochila") {
         $id_familia = $_SESSION['hackathon_fam_id'];
-        $sql = "SELECT id, descripcion FROM tbl_mochila where id_familia = ".$id_familia." ORDER BY estado, descripcion;";
-      
+        $sql = "SELECT id, descripcion FROM tbl_mochila where id_familia = " . $id_familia . " ORDER BY estado, descripcion;";
+
         $ejecuta = mysqli_query($conexion, $sql);
         $datos = array();
         while ($row = mysqli_fetch_array($ejecuta)) {

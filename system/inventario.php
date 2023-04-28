@@ -15,6 +15,29 @@ if (empty($_SESSION['hackathon_active'])) {
     <?php
     include_once('../assets/includes/head.php');
     ?>
+    <style type="text/css">
+        #pageStyle {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            border: 1px solid #CCC;
+            line-height: 32px;
+            text-align: center;
+            color: #999;
+            margin-top: 20px;
+            text-decoration: none;
+        }
+
+        #pageStyle:hover {
+            background-color: #CCC;
+        }
+
+        #pageStyle .active {
+            background-color: #0CF;
+            color: #ffffff;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -53,7 +76,7 @@ if (empty($_SESSION['hackathon_active'])) {
                 <div class="main-content-inner">
                     <!-- Here your code -->
                     <!-- Progress Table start -->
-                    <div class="col-12 mt-5">
+                    <div class="col-13 mt-4">
                         <div class="card">
                             <div class="card-body">
                                 <div class="col-sm-12">
@@ -68,25 +91,13 @@ if (empty($_SESSION['hackathon_active'])) {
                                         <table class="table table-hover progress-table text-center">
                                             <thead class="text-uppercase">
                                                 <tr>
-                                                    <th scope="col">LOCAL</th>
-                                                    <th scope="col">FECHA</th>
-                                                    <th scope="col">TIPO COMPROBANTE</th>
-                                                    <th scope="col">FORMA PAGO</th>
-                                                    <th scope="col">NRO. DOCUMENTO</th>
-                                                    <th scope="col">NRO. DOC. CLIENTE</th>
-                                                    <th scope="col">CLIENTE</th>
-                                                    <th scope="col">EFECTIVO</th>
-                                                    <th scope="col">TARJETA</th>
-                                                    <th scope="col">OTRO MEDIO PAGO</th>
-                                                    <th scope="col">DOCUMENTO AFECTADO</th>
-                                                    <th scope="col">OP. GRABADA</th>
-                                                    <th scope="col">OP. INAFECTA</th>
-                                                    <th scope="col">OP_EXONERADA</th>
-                                                    <th scope="col">IGV</th>
-                                                    <th scope="col">TOTAL</th>
-                                                    <th scope="col">COSTO</th>
-                                                    <th scope="col">GANANCIA</th>
-                                                    <th scope="col">DOCUMENTOS</th>
+                                                    <th scope="col">MOCHILA</th>
+                                                    <th scope="col">TIPO</th>
+                                                    <th scope="col">ITEM</th>
+                                                    <th scope="col">CANTIDAD</th>
+                                                    <th scope="col">VENCIMIENTO</th>
+                                                    <th scope="col">ESTADO</th>
+                                                    <th scope="col">DIAS PARA VENCER</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="bodytblReporte">
