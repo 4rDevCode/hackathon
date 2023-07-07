@@ -1,6 +1,6 @@
 <?php
 
-$web = true;
+$web = false;
 if ($web) {
     //Ip de la pc servidor de base de datos  MYSQL8003.site4now.net
     define("DB_HOST", "MYSQL8003.site4now.net");
@@ -25,7 +25,7 @@ define("DB_ENCODE", "utf8");
 //Definimos una constante como nombre del proyecto
 define("SYSTEM_NAME", "AylluTanta");
 //Definimos una constante como nombre del proyecto
-$domain = "http://192.168.1.11/";
+$domain = "http://192.168.1.8/";
 define("DOMAIN", $domain);
 //$domain = "http://192.168.1.12";
 //Definimos una constante como nombre del proyecto
